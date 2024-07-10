@@ -9,7 +9,7 @@ public class maimai
         String splitBy = ",";
         try
         {
-            BufferedReader br = new BufferedReader(new FileReader("你的csv檔案"));
+            BufferedReader br = new BufferedReader(new FileReader("/Users/carsoncheng/Downloads/arcadeSongs.csv"));
 
             int count = 1;
             while ((line = br.readLine()) != null)
@@ -29,7 +29,12 @@ public class maimai
                             if(!isCount){
                                 System.out.println(count+". "+d[1] + "," + d[2] + "," + d[3] + "," + d[4] + ", tap:" + d[5] + ",hold:" + d[6] + ",slide:" + d[7] + ",touch:" + d[8] + ",break:" + d[9] + ",物量當量:" + d[10]);
                             }
-                            System.out.println("物量當量："+(Math.round(i*10)/10.0)+"，Break當量："+(Math.round(j*100)/100.0));
+                            double noteMag = (Math.round(i*10)/10.0), bkMag = (Math.round(j*100)/100.0);
+                            System.out.printf("物量當量：%-5s，Break當量：%-5s ----->",noteMag,bkMag);
+
+                            noteMagCal(noteMag);
+                            bkMagCal(bkMag);
+
 
                             isCount = true;
                         }
@@ -47,6 +52,43 @@ public class maimai
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    public static void noteMagCal (double noteMag){
+        noteMag = Math.round(noteMag*10)/10.0;
+        if (((int)(noteMag % 1)*10)/10.0 == 0){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 0，Good 數： 0 /",(int)noteMag);
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.1){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 2，Good 數： 1 /",(int)(noteMag-2.1));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.2){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 4，Good 數： 0 /",(int)(noteMag-3.2));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.3){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 1，Good 數： 1 /",(int)(noteMag-1.3));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.4){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 3，Good 數： 0 /",(int)(noteMag-2.4));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.5){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 0，Good 數： 1 /",(int)(noteMag-0.5));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.6){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 2，Good 數： 0 /",(int)(noteMag-1.6));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.7){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 4，Good 數： 1 /",(int)(noteMag-3.7));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.8){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 1，Good 數： 0 /",(int)(noteMag-0.8));
+        } else if (((int)(noteMag % 1)*10)/10.0 == 0.9){
+            System.out.printf("Tap Perfect 數：%3d，Great 數： 3，Good 數： 1 /",(int)(noteMag-2.9));
+        }
+    }
+
+    public static void bkMagCal (double bkMag){
+        if (bkMag % 1.0 == 0){
+            System.out.println(" Break Perfect 數：" +(int)bkMag);
+        } else if (bkMag % 1.0 == 0.25){
+            System.out.println(" Break Perfect 數：" + (int)(bkMag-2.25) + "，Break P-1 數：" + 3);
+        } else if (bkMag % 1.0 == 0.5){
+            System.out.println(" Break Perfect 數：" + (int)(bkMag-1.5) + "，Break P-1 數：" + 2);
+        } else if (bkMag % 1.0 == 0.75){
+            System.out.println(" Break Perfect 數：" + (int)(bkMag-0.75) + "，Break P-1 數：" + 1);
         }
     }
 }
